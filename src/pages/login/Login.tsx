@@ -1,17 +1,33 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 import { FormEvent, useState } from "react";
-import { auth, db } from "../../services/firebaseconnection";
+import { auth } from "../../services/firebaseconnection";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Navigate } from "react-router";
 
 import Input from "../../components/input/Input";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    alert("ola");
+    if (email === "" || password === "") {
+      toast.warning("Digite Email e senha");
+      return;
+    }
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        navigate("/admin", { replace: true });
+      })
+      .catch((error) => {
+        toast.error("Email ou Senha Inválidos");
+        console.log("erro ao fazer o login ", error);
+      });
 
     // setEmail("");
     // setPassword("");
@@ -37,7 +53,6 @@ const Login = () => {
           placeholder="Digite o email.."
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
 
         <Input
@@ -45,7 +60,6 @@ const Login = () => {
           placeholder="********"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
 
         <button
@@ -55,6 +69,8 @@ const Login = () => {
           Acessar
         </button>
       </form>
+
+      <ToastContainer autoClose={2000} />
     </div>
   );
 };

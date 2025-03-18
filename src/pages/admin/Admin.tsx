@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Header from "../../components/header/Header";
 import Input from "../../components/input/Input";
+import { FiTrash } from "react-icons/fi";
 
 const Admin = () => {
-  const [name, setNameInput] = useState("");
+  const [nameInput, setNameInput] = useState("");
   const [url, setUrl] = useState("");
   const [textColorInput, setTextColorInput] = useState("#fff");
-  const [backgroundColorInput, setBackgroundColorInput] = useState("#121212");
+  const [backgroundColorInput, setBackgroundColorInput] = useState("#000");
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen pb-7 px-2">
@@ -17,7 +18,7 @@ const Admin = () => {
         <Input
           type="text"
           placeholder="Digite o nome do link"
-          value={name}
+          value={nameInput}
           onChange={(e) => setNameInput(e.target.value)}
         />
 
@@ -53,24 +54,48 @@ const Admin = () => {
           </div>
         </section>
 
-        <div className="flex items-center justify-start flex-col mb-7 p-2 border-gray-100/25 border rounded-md">
-          <label className="text-white font-medium mb-3">
-            Veja como está ficando
-          </label>
-          <article
-            className="w-11/12 max-w-lg flex flex-col items-center justify-between bg-amber-400 rounded px-1 py-2"
-            style={{
-              marginBottom: 8,
-              marginTop: 8,
-              backgroundColor: backgroundColorInput,
-            }}
-          >
-            <p className="font-medium" style={{ color: textColorInput }}>
-              GitHub
-            </p>
-          </article>
-        </div>
+        {nameInput !== "" && (
+          <div className="flex items-center justify-start flex-col mb-7 p-2 border-gray-100/25 border rounded-md">
+            <label className="text-white font-medium mb-3">
+              Veja como está ficando
+            </label>
+            <article
+              className="w-11/12 max-w-lg flex flex-col items-center justify-between bg-amber-400 rounded px-1 py-2"
+              style={{
+                marginBottom: 8,
+                marginTop: 8,
+                backgroundColor: backgroundColorInput,
+              }}
+            >
+              <p className="font-medium" style={{ color: textColorInput }}>
+                {nameInput}
+              </p>
+            </article>
+          </div>
+        )}
+
+        <button
+          className="bg-blue-600 font-medium h-9 rounded-md text-white gap-4 flex justify-center items-center mb-7 cursor-pointer"
+          type="submit"
+        >
+          Cadastrar
+        </button>
       </form>
+
+      <h2 className="font-bold text-white text-2xl mb-4">Meus Link</h2>
+
+      <article
+        className="flex justify-between items-center w-11/12 max-w-xl rounded py-3 px-2 mb-2 font-medium select-none"
+        style={{ backgroundColor: "#2563eb", color: "#FFF" }}
+      >
+        <p>Nome do Link</p>
+
+        <div>
+          <button className="cursor-pointer border border-dashed p-1 rounded bg-neutral-900">
+            <FiTrash size={18} color="#FFF" />
+          </button>
+        </div>
+      </article>
     </div>
   );
 };

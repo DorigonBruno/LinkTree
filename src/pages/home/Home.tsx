@@ -53,7 +53,10 @@ const Home = () => {
             key={link.id}
           >
             <a href={link.url} target="_blank">
-              <p className="text-base md:text-lg" style={{ color: link.color }}>
+              <p
+                className="text-base md:text-lg font-medium"
+                style={{ color: link.color }}
+              >
                 {link.name}
               </p>
             </a>

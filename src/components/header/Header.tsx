@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header className="w-full max-w-2xl mt-4 px-1">
-      <nav className="bg-white w-full h-12 flex items-center justify-between rounded-md flex-row-reverse">
+      <nav className="bg-white w-full h-12 flex items-center justify-between rounded-md px-2">
         <ul className="flex gap-4 px-3 font-medium">
           <Link to="/">Home</Link>
           <Link to="/admin">Meus Links</Link>

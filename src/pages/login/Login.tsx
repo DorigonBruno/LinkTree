@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import { FormEvent, useState } from "react";
-import { auth } from "../../services/firebaseconnection";
+
+import { auth } from "../../services/firebaseConnection";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Navigate } from "react-router";
 
 import Input from "../../components/input/Input";
 
@@ -28,9 +28,6 @@ const Login = () => {
         toast.error("Email ou Senha Inválidos");
         console.log("erro ao fazer o login ", error);
       });
-
-    // setEmail("");
-    // setPassword("");
   }
 
   return (

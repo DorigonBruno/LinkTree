@@ -1,7 +1,19 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { FiTrash } from "react-icons/fi";
 import Header from "../../components/header/Header";
 import Input from "../../components/input/Input";
-import { FiTrash } from "react-icons/fi";
+import { ToastContainer, toast } from "react-toastify";
+
+import { db } from "../../services/firebaseConnection";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 
 const Admin = () => {
   const [nameInput, setNameInput] = useState("");
@@ -9,11 +21,39 @@ const Admin = () => {
   const [textColorInput, setTextColorInput] = useState("#fff");
   const [backgroundColorInput, setBackgroundColorInput] = useState("#000");
 
+  async function handleRegister(e: FormEvent) {
+    e.preventDefault();
+
+    if (nameInput === "" || url === "") {
+      toast.warning("Preencha todos os campos");
+      return;
+    }
+
+    addDoc(collection(db, "links"), {
+      name: nameInput,
+      url: url,
+      bg: backgroundColorInput,
+      color: textColorInput,
+      created: new Date(),
+    })
+      .then(() => {
+        console.log("cadastrado com sucesso");
+        setNameInput("");
+        setUrl("");
+      })
+      .catch((error) => {
+        console.log("Erro ao cadastrar no banco ", error);
+      });
+  }
+
   return (
     <div className="flex flex-col items-center w-full min-h-screen pb-7 px-2">
       <Header />
 
-      <form className="flex flex-col my-8 w-full max-w-xl">
+      <form
+        className="flex flex-col my-8 w-full max-w-xl"
+        onSubmit={handleRegister}
+      >
         <label className="text-white font-medium my-2">Nome do Link</label>
         <Input
           type="text"
@@ -75,7 +115,7 @@ const Admin = () => {
         )}
 
         <button
-          className="bg-blue-600 font-medium h-9 rounded-md text-white gap-4 flex justify-center items-center mb-7 cursor-pointer"
+          className="bg-blue-600 font-medium h-9 rounded-md text-white flex items-center justify-center mb-7 cursor-pointer"
           type="submit"
         >
           Cadastrar
@@ -96,6 +136,8 @@ const Admin = () => {
           </button>
         </div>
       </article>
+
+      <ToastContainer autoClose={1000} />
     </div>
   );
 };

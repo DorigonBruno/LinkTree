@@ -1,3 +1,7 @@
+<p>
+  <img src="./github/unknown_2025.03.18-19.13-ezgif.com-video-to-gif-converter.gif"/>
+</p>
+
 # Projeto LinkTree 🌲
 
 Projeto basicamente é um CRUD, faz login com email e senha, e conecta com o banco de dados do firebase.

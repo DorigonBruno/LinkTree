@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "../../services/firebaseConnection";
-import {
-  getDocs,
-  collection,
-  orderBy,
-  query,
-  doc,
-  getDoc,
-} from "firebase/firestore";
+import { getDocs, collection, orderBy, query } from "firebase/firestore";
 
 type LinkProps = {
   id: string;
